@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Document</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    </head>
+    <body>
+        <div id="root"></div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/react/16.4.2/umd/react.development.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.4.2/umd/react-dom.development.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+
+        <script type="text/babel">
+            // Step 1: Define a function component "Invoice" that displays details of an invoice
+            function Invoice( {customerName,items,coupon,children}) {
+                
+                return (
+                    <div className="invoice">
+                        <div className="card border-primary">
+                            <div className="card-body">
+                                <h4 className="card-title">Invoice</h4>
+                                <hr />
+                                <p className="card-text">
+                                    Customer name: {customerName}
+                                </p>
+                            </div>
+                        </div>
+                        <div className="invoice">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Item</th>
+                                        <th>Qty</th>
+                                        <th>Price</th>
+                                        <th>Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {
+                                        items.map(item=>(
+                                            <tr>
+                                            <td>{item.name}</td>
+                                            <td>{item.quantity}</td>
+                                            <td>{item.price}</td>
+                                            <td>{item.quantity*item.price}</td>
+                                            </tr>
+                                        ))
+                                    }
+                                </tbody>
+                            </table>
+                            {
+                                coupon ?(
+                            <div>
+                            Use coupon {coupon} to get a discount on your next purchase</div>
+                                ):null
+                            }
+                      </div>
+                        <footer>
+                            {children}
+                        </footer>
+                    </div>
+                );
+            }
+            
+            const invoiceJohn = {
+                items: [
+                    {
+                        name: 'Mac n Cheese',
+                        quantity: 2,
+                        price: 5
+                    },
+                    {
+                        name: 'Coke Float',
+                        quantity: 4,
+                        price: 3.50
+                    }
+                ],
+                coupon: 'NEW30'
+            };
+            
+            const invoiceJane = {
+                items: [
+                    {
+                        name: 'French Fries',
+                        quantity: 1,
+                        price: 60
+                    },
+                    {
+                        name: 'Mc Swirl',
+                        quantity: 2,
+                        price: 2.25
+                    }
+                ]
+            };
+
+            // Step 2: Render 2 invoice elements (one for John and one for Jane). Make sure to use an array/container/React.Fragment. Pass billingDetails and customerName as props. Pass 2 div elements that contains store address, and store email id as children.
+            
+            ReactDOM.render(
+                <React.Fragment>
+                <Invoice{...invoiceJohn} customerName="John">
+                <div>Awesome Store</div>
+                <div>Phone:7412589635</div>
+                </Invoice>
+                <Invoice{...invoiceJane} customerName="Jane"/>
+                </React.Fragment>, document.getElementById( 'root' ) );
+            
+           
+        </script>
+    </body>
+</html>
