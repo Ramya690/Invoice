@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Document</title>
+        <style>
+            .panel {
+                border: 1px solid crimson;
+                border-radius: 5px;
+            }
+
+            .panel-heading, .panel-body {
+                padding: 10px;
+            }
+
+            .panel-heading {
+                background-color: crimson;
+                color: white;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="root"></div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/react/16.4.2/umd/react.development.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.4.2/umd/react-dom.development.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+
+        <script type="text/babel">
+            // Step 2: Separate the panel heading and panel body into their own components and still have the toggle functionality work.
+
+
+            // Step 1: Add functionality to toggle (open/close) the panel body when the panel heading is clicked
+            class Panel extends React.Component {
+                state={
+                    isOpen:true
+
+                };
+                toggle=()=>
+                {
+                    this.setState(curState=>({
+                        isOpen:!curState.isOpen
+                    }));
+                }
+                render() {
+                    const { children, heading } = this.props;
+                    const{isOpen}=this.state;
+                    return (
+                        <div className="panel">
+                            <div className="panel-heading" onClick={this.toggle}>{heading}</div>
+                            {
+                                isOpen ?(
+                                    <div className="panel-body">
+                                {children}
+                            </div>
+
+                                ):null
+                            }
+                            
+                        </div>
+                    )
+                }
+            }
+
+            ReactDOM.render( 
+                <Panel heading="What is React?">
+                    It is a JS library for managing <strong>views</strong>
+                </Panel>,
+                document.getElementById( 'root' )
+            );
+        </script>
+    </body>
+</html>
