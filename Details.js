@@ -1,13 +1,11 @@
 import axios from 'axios';
-import Catalog from '../components/Catalog';
-export default class CatalogService
+
+export default class Details
 {
     static baseUrl='https://awesome-store-server.herokuapp.com'
-    static getProducts()
+    static getProduct(id)
         {
-            //axios.*() returns a promise object(Promise is built-in class in JS-it was introduced in ES2015)
-            //then() and catch() are 2 methods of promise object
-           return  axios.get(`${this.baseUrl}/products`)
+           return  axios.get(`${this.baseUrl}/products/${id}`)
                 .then(function(response) //backend successfully returned data
                 {
                     return response.data;//data returned by backend (array of products)
